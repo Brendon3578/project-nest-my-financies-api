@@ -1,8 +1,8 @@
 {
   "name": "my-financies-api",
-  "version": "0.0.1",
-  "description": "",
-  "author": "",
+  "version": "0.1.0",
+  "description": "API made with Nest JS and Prisma for project-angular-my-financies Angular application",
+  "author": "Brendon Gomes",
   "private": true,
   "license": "UNLICENSED",
   "scripts": {

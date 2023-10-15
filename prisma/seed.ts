@@ -37,7 +37,7 @@ async function createEntry(
   });
 }
 
-const dateWithEspecificMonth = (month: number = 1) =>
+const dateWithSpecificMonth = (month: number = 1) =>
   new Date(new Date().setMonth(month));
 
 async function main() {
@@ -56,7 +56,7 @@ async function main() {
     'Conta água agosto',
     false,
     88.5,
-    dateWithEspecificMonth(7),
+    dateWithSpecificMonth(7),
     'despesa',
     category1.id,
   );
@@ -66,7 +66,7 @@ async function main() {
     'Remédio genérico',
     true,
     10.5,
-    dateWithEspecificMonth(5),
+    dateWithSpecificMonth(5),
     'despesa',
     category2.id,
   );
@@ -76,7 +76,7 @@ async function main() {
     'Salário de emprego top',
     true,
     5350,
-    dateWithEspecificMonth(10),
+    dateWithSpecificMonth(10),
     'receita',
     category3.id,
   );

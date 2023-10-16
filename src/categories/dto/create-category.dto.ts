@@ -14,4 +14,7 @@ export class CreateCategoryDto {
   @IsString({ message: 'O campo descrição deve ser um texto' })
   @IsOptional()
   description?: string | null;
+
+  @IsString()
+  workspace_id: string;
 }

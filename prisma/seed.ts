@@ -1,16 +1,25 @@
-import { PrismaClient } from '@prisma/client';
 // run: 'npx prisma db seed'
+import { PrismaClient } from '@prisma/client';
 
-// inicializar Prisma Client
+import * as bcrypt from 'bcrypt';
+
 const prisma = new PrismaClient();
+// inicializar Prisma Client
+
+// bcrypt configure
+const roundsOfHashing = 10;
 
 async function createUser({ name, email, password }) {
+  const hashedPassword = await bcrypt.hash(password, roundsOfHashing);
+
   return await prisma.user.upsert({
     where: { email },
-    update: {},
+    update: {
+      password: hashedPassword,
+    },
     create: {
       name,
-      password,
+      password: hashedPassword,
       email,
     },
   });

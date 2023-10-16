@@ -2,12 +2,20 @@ import { Injectable } from '@nestjs/common';
 import { CreateCategoryDto } from './dto/create-category.dto';
 import { UpdateCategoryDto } from './dto/update-category.dto';
 import { PrismaService } from '../prisma/prisma/prisma.service';
+import { InvalidRelationError } from '../errors/invalid-relation.error';
 
 @Injectable()
 export class CategoriesService {
   constructor(private prisma: PrismaService) {}
 
-  create(createCategoryDto: CreateCategoryDto) {
+  async create(createCategoryDto: CreateCategoryDto) {
+    const workspaceExists =
+      (await this.prisma.workspace.count({
+        where: { id: createCategoryDto.workspace_id },
+      })) != 0;
+
+    if (!workspaceExists) throw new InvalidRelationError('Workspace not found');
+
     return this.prisma.category.create({
       data: createCategoryDto,
     });

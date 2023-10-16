@@ -5,26 +5,77 @@ generator client {
   provider = "prisma-client-js"
 }
 
+// Generate Entity Relationship Diagram, docs: https://github.com/keonik/prisma-erd-generator
+generator dbml {
+  provider = "prisma-dbml-generator"
+}
+
 datasource db {
   provider = "sqlite"
   url      = "file:./database.db"
 }
 
-model Category {
-  id          Int     @id @default(autoincrement())
-  name        String  @unique
+model User {
+  id        String  @id @default(uuid())
+  name      String
+  email     String  @unique
+  password  String
+  image_url String?
+
+  created_at DateTime @default(now())
+  updated_at DateTime @updatedAt
+
+  UsersOnWorkspaces UsersOnWorkspaces[]
+  Entries           Entry[]
+}
+
+model Workspace {
+  id          String  @id @default(uuid())
+  title       String
   description String?
-  Entry       Entry[]
+  admin_id    String
+
+  created_at DateTime @default(now())
+
+  Categories        Category[]
+  Entries           Entry[]
+  UsersOnWorkspaces UsersOnWorkspaces[]
+}
+
+model UsersOnWorkspaces {
+  user_id      String
+  workspace_id String
+  joined_in    DateTime @default(now())
+
+  User     User      @relation(fields: [user_id], references: [id])
+  Workpace Workspace @relation(fields: [workspace_id], references: [id])
+
+  @@id([user_id, workspace_id])
+}
+
+model Category {
+  id           Int     @id @default(autoincrement())
+  name         String
+  description  String?
+  workspace_id String
+
+  Workspace Workspace @relation(fields: [workspace_id], references: [id])
+  Entries   Entry[]
 }
 
 model Entry {
-  id          Int      @id @default(autoincrement())
-  name        String
-  description String?
-  paid        Boolean  @default(false)
-  date        DateTime @default(now())
-  value       Decimal
-  type        String
-  category    Category @relation(fields: [category_id], references: [id])
-  category_id Int
+  id           Int      @id @default(autoincrement())
+  name         String
+  description  String?
+  paid         Boolean  @default(false)
+  date         DateTime @default(now())
+  value        Decimal
+  type         String
+  category_id  Int
+  workspace_id String
+  author_id    String
+
+  Creator   User      @relation(fields: [author_id], references: [id])
+  Category  Category  @relation(fields: [category_id], references: [id])
+  Workspace Workspace @relation(fields: [workspace_id], references: [id])
 }

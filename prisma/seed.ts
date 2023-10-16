@@ -1,29 +1,62 @@
 import { PrismaClient } from '@prisma/client';
-// rodar npx prisma db seed
+// run: 'npx prisma db seed'
 
 // inicializar Prisma Client
 const prisma = new PrismaClient();
 
-async function createCategory(name: string, description: string) {
-  return await prisma.category.upsert({
-    where: { name },
+async function createUser({ name, email, password }) {
+  return await prisma.user.upsert({
+    where: { email },
     update: {},
     create: {
+      name,
+      password,
+      email,
+    },
+  });
+}
+
+async function createWorkspace({ admin_id, title, description }) {
+  const workspace = await prisma.workspace.create({
+    data: {
+      admin_id,
+      title,
+      description,
+    },
+  });
+
+  // create relationship
+  await prisma.usersOnWorkspaces.create({
+    data: {
+      user_id: admin_id,
+      workspace_id: workspace.id,
+    },
+  });
+
+  return workspace;
+}
+
+async function createCategory({ workspace_id, name, description }) {
+  return await prisma.category.create({
+    data: {
+      workspace_id,
       name,
       description,
     },
   });
 }
 
-async function createEntry(
-  name: string,
-  description: string,
-  paid: boolean,
-  value: number,
-  date: Date,
-  type: string,
-  category_id: number,
-) {
+async function createEntry({
+  author_id,
+  category_id,
+  workspace_id,
+  name,
+  description,
+  value,
+  type,
+  paid,
+  date,
+}) {
   return await prisma.entry.create({
     data: {
       name,
@@ -33,6 +66,8 @@ async function createEntry(
       date,
       type,
       category_id,
+      author_id,
+      workspace_id,
     },
   });
 }
@@ -42,46 +77,37 @@ const dateWithSpecificMonth = (month: number = 1) =>
 
 async function main() {
   // criar duas categorias "dummy" (burras - sem valor)
-  const category1 = await createCategory(
-    'Moradia',
-    'Pagamentos de Conta da Casa',
-  );
+  const user = await createUser({
+    name: 'Brendon Gomes',
+    email: 'brendonemail@email.com',
+    password: '123',
+  });
 
-  const category2 = await createCategory('Saúde', 'Plano de Saúde e Remédios');
+  const workspace = await createWorkspace({
+    admin_id: user.id,
+    title: 'Faturamento da AWS',
+    description: 'Faturamento do projeto AWS - FinOps',
+  });
 
-  const category3 = await createCategory('Salário', 'Salário de emprego');
+  const category = await createCategory({
+    workspace_id: workspace.id,
+    name: 'Amazon EC2',
+    description: 'Faturamento mensal de instâncias EC2 da AWS',
+  });
 
-  const entry1 = await createEntry(
-    'Conta de Água',
-    'Conta água agosto',
-    false,
-    88.5,
-    dateWithSpecificMonth(7),
-    'despesa',
-    category1.id,
-  );
+  const entry = await createEntry({
+    category_id: category.id,
+    workspace_id: workspace.id,
+    author_id: user.id,
+    name: 'instância EC2 t2.micro',
+    description: 'Faturamento mensal da instância EC2 t2.micro Linux',
+    paid: true,
+    type: 'saldo',
+    date: dateWithSpecificMonth(7),
+    value: 30.3,
+  });
 
-  const entry2 = await createEntry(
-    'Remédio',
-    'Remédio genérico',
-    true,
-    10.5,
-    dateWithSpecificMonth(5),
-    'despesa',
-    category2.id,
-  );
-
-  const entry3 = await createEntry(
-    'Salário',
-    'Salário de emprego top',
-    true,
-    5350,
-    dateWithSpecificMonth(10),
-    'receita',
-    category3.id,
-  );
-
-  console.log({ category1, category2, category3, entry1, entry2, entry3 });
+  console.log({ user, workspace, category, entry });
 }
 
 // executar a função principal

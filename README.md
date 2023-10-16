@@ -49,6 +49,14 @@ Nessa aplicação Nest, a estrutura de arquivos da aplicação está da seguinte
 - As pastas `dto` que estão dentro de `/categories` e `/entries` contêm os DTOs (Data Transfer Object) que são objetos que definem como os dados serão enviados pela rede, são utilizados também para a validação dos valores enviados
 - Os ***controller*** servem para lidar com as requisições e respostas para os endpoints. É através dos ***services*** que acessam o database
 
+## Estrutura do Banco de Dados
+
+Diagrama de Entidade-Relacionamento (ER) do Banco de Dados
+
+<center>
+  <img src="./prisma/dbml/diagram.png" alt="Diagrama de Entidade-Relacionamento">
+</center>
+
 ---
 
 ## Anotações de Estudo

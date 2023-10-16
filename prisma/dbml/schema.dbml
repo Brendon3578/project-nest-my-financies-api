@@ -1,0 +1,75 @@
+//// ------------------------------------------------------
+//// THIS FILE WAS AUTOMATICALLY GENERATED (DO NOT MODIFY)
+//// ------------------------------------------------------
+
+Table User {
+  id String [pk]
+  name String [not null]
+  email String [unique, not null]
+  password String [not null]
+  image_url String
+  created_at DateTime [default: `now()`, not null]
+  updated_at DateTime [not null]
+  UsersOnWorkspaces UsersOnWorkspaces [not null]
+  Entries Entry [not null]
+}
+
+Table Workspace {
+  id String [pk]
+  title String [not null]
+  description String
+  admin_id String [not null]
+  created_at DateTime [default: `now()`, not null]
+  Categories Category [not null]
+  Entries Entry [not null]
+  UsersOnWorkspaces UsersOnWorkspaces [not null]
+}
+
+Table UsersOnWorkspaces {
+  user_id String [not null]
+  workspace_id String [not null]
+  joined_in DateTime [default: `now()`, not null]
+  User User [not null]
+  Workpace Workspace [not null]
+
+  indexes {
+    (user_id, workspace_id) [pk]
+  }
+}
+
+Table Category {
+  id Int [pk, increment]
+  name String [not null]
+  description String
+  workspace_id String [not null]
+  Workspace Workspace [not null]
+  Entries Entry [not null]
+}
+
+Table Entry {
+  id Int [pk, increment]
+  name String [not null]
+  description String
+  paid Boolean [not null, default: false]
+  date DateTime [default: `now()`, not null]
+  value Decimal [not null]
+  type String [not null]
+  category_id Int [not null]
+  workspace_id String [not null]
+  author_id String [not null]
+  Creator User [not null]
+  Category Category [not null]
+  Workspace Workspace [not null]
+}
+
+Ref: UsersOnWorkspaces.user_id > User.id
+
+Ref: UsersOnWorkspaces.workspace_id > Workspace.id
+
+Ref: Category.workspace_id > Workspace.id
+
+Ref: Entry.author_id > User.id
+
+Ref: Entry.category_id > Category.id
+
+Ref: Entry.workspace_id > Workspace.id

@@ -1,8 +1,8 @@
 import { HttpAdapterHost, NestFactory } from '@nestjs/core';
 import { AppModule } from './app.module';
 import { ValidationPipe } from '@nestjs/common';
-import { PrismaExceptionFilter } from './exceptions/prisma-client-exception/prisma-client-exception.filter';
-import { InvalidRelationExceptionFilter } from './exceptions/invalid-relation-exception/invalid-relation-exception.filter';
+import { PrismaExceptionFilter } from './common/exceptions/prisma-client-exception/prisma-client-exception.filter';
+import { InvalidRelationExceptionFilter } from './common/exceptions/invalid-relation-exception/invalid-relation-exception.filter';
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);

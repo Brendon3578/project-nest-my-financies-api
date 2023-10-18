@@ -1,8 +1,8 @@
 import { Injectable } from '@nestjs/common';
 import { CreateWorkspaceDto } from './dto/create-workspace.dto';
 import { UpdateWorkspaceDto } from './dto/update-workspace.dto';
-import { PrismaService } from '../prisma/prisma/prisma.service';
-import { InvalidRelationError } from '../errors/invalid-relation.error';
+import { PrismaService } from '../common/prisma/prisma.service';
+import { InvalidRelationError } from '../common/errors/invalid-relation.error';
 
 @Injectable()
 export class WorkspacesService {

@@ -1,8 +1,8 @@
 import { Injectable } from '@nestjs/common';
 import { CreateEntryDto } from './dto/create-entry.dto';
 import { UpdateEntryDto } from './dto/update-entry.dto';
-import { PrismaService } from '../prisma/prisma/prisma.service';
-import { InvalidRelationError } from '../errors/invalid-relation.error';
+import { PrismaService } from '../common/prisma/prisma.service';
+import { InvalidRelationError } from '../common/errors/invalid-relation.error';
 
 @Injectable()
 export class EntriesService {

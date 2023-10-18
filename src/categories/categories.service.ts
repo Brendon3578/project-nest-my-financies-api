@@ -1,8 +1,8 @@
 import { Injectable } from '@nestjs/common';
 import { CreateCategoryDto } from './dto/create-category.dto';
 import { UpdateCategoryDto } from './dto/update-category.dto';
-import { PrismaService } from '../prisma/prisma/prisma.service';
-import { InvalidRelationError } from '../errors/invalid-relation.error';
+import { PrismaService } from '../common/prisma/prisma.service';
+import { InvalidRelationError } from '../common/errors/invalid-relation.error';
 
 @Injectable()
 export class CategoriesService {

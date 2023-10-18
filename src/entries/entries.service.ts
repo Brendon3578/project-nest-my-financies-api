@@ -14,8 +14,15 @@ export class EntriesService {
         where: { id: createEntryDto.category_id },
       })) != 0;
 
+    const workspaceExists =
+      (await this.prisma.workspace.count({
+        where: { id: createEntryDto.workspace_id },
+      })) != 0;
+
     if (!categoryExists) {
       throw new InvalidRelationError('Category not found');
+    } else if (!workspaceExists) {
+      throw new InvalidRelationError('Workspace not found');
     }
 
     return this.prisma.entry.create({
@@ -40,19 +47,8 @@ export class EntriesService {
       where: {
         id,
       },
-      include: {
-        category: true,
-      },
     });
   }
-
-  // findByMonthAndYear(month: number, year: number) {
-  //   return this.prisma.entry.findMany({
-  //     where: {
-  //       date: new Date()
-  //     }
-  //   })
-  // }
 
   update(id: number, updateEntryDto: UpdateEntryDto) {
     return this.prisma.entry.update({
@@ -66,6 +62,15 @@ export class EntriesService {
   remove(id: number) {
     return this.prisma.entry.delete({
       where: { id },
+    });
+  }
+
+  // author relationship
+  findAllByAuthorId(author_id: string) {
+    return this.prisma.entry.findMany({
+      where: {
+        author_id: author_id,
+      },
     });
   }
 }

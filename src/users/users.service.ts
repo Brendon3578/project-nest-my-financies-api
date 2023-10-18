@@ -53,4 +53,17 @@ export class UsersService {
       where: { id },
     });
   }
+
+  // workspaces relationship
+  findAllUserWorkspaces(id: string) {
+    return this.prisma.workspace.findMany({
+      where: {
+        UsersOnWorkspaces: {
+          every: {
+            user_id: id,
+          },
+        },
+      },
+    });
+  }
 }

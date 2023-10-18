@@ -36,6 +36,11 @@ export class EntriesController {
     return this.entriesService.findAllPaid(paid);
   }
 
+  @Get()
+  findAllByAuthorId(@Query('author') author_id: string) {
+    return this.entriesService.findAllByAuthorId(author_id);
+  }
+
   @Get(':id')
   async findOneById(@Param('id', ParseIntPipe) id: string) {
     const entry = await this.entriesService.findOneById(+id);

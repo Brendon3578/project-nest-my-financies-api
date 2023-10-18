@@ -47,8 +47,8 @@ model UsersOnWorkspaces {
   workspace_id String
   joined_in    DateTime @default(now())
 
-  User     User      @relation(fields: [user_id], references: [id])
-  Workpace Workspace @relation(fields: [workspace_id], references: [id])
+  User      User      @relation(fields: [user_id], references: [id])
+  Workspace Workspace @relation(fields: [workspace_id], references: [id])
 
   @@id([user_id, workspace_id])
 }

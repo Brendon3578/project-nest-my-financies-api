@@ -7,6 +7,7 @@ import {
   IsNumber,
   IsOptional,
   IsString,
+  IsUUID,
   Max,
   MaxLength,
   Min,
@@ -49,4 +50,14 @@ export class CreateEntryDto {
   @IsInt({ message: 'Categoria preenchida indevidamente' })
   @IsNotEmpty({ message: 'Categoria não preenchida' })
   category_id: number;
+
+  @IsUUID()
+  @IsString()
+  @IsNotEmpty()
+  workspace_id: string;
+
+  @IsUUID()
+  @IsString()
+  @IsNotEmpty()
+  author_id: string;
 }

@@ -30,7 +30,7 @@ Table UsersOnWorkspaces {
   workspace_id String [not null]
   joined_in DateTime [default: `now()`, not null]
   User User [not null]
-  Workpace Workspace [not null]
+  Workspace Workspace [not null]
 
   indexes {
     (user_id, workspace_id) [pk]

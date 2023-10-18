@@ -44,7 +44,8 @@ npm run start:dev
 
 - [NestJS](https://nestjs.com/): framework utilizado para criar a aplicação do servidor
 - [Prisma](https://www.prisma.io/): Object-Relational Mapping (ORM) utilizado para facilitar a conexão entre o servidor web Nest e o banco de dados SQLite criado localmente (no arquivo `db.json`)
-- [SQLite Database](https://www.sqlite.org/): Banco de dados utilizado para produzir um banco de dados simples e rápido dentro da aplicação
+- [SQLite Database](https://www.sqlite.org/): Banco de dados utilizado para a implementação um banco de dados simples e rápido dentro da aplicação de forma local
+- [PassportJS](https://www.passportjs.org/): biblioteca  para autenticação de rotas do nest via estratégia [JWT ( JSON Web Token)](https://jwt.io/)
 
 ## Rodando a aplicação
 

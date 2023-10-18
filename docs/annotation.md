@@ -10,9 +10,6 @@
   - `nest generate filter prisma-client-exception`: gerar um filter para agrupar exceções do prisma
 - Comandos do **Prisma**:
   - `npm install @prisma/client`: instalar o prisma client
-  - `npx prisma init`: iniciar o prisma dentro da pasta raiz
-  - `npx prisma migrate dev`: criar uma migração (versionamento) para o banco de dados
-  - `npx prisma studio`: ferramenta que abre no browser para visualizar e manipular os dados dos banco de dados
 
 ## Anotações
 

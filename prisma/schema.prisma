@@ -5,7 +5,7 @@ generator client {
   provider = "prisma-client-js"
 }
 
-// Generate Entity Relationship Diagram, docs: https://github.com/keonik/prisma-erd-generator
+// Generate Entity Relationship Diagram, docs: https://github.com/notiz-dev/prisma-dbml-generator
 generator dbml {
   provider = "prisma-dbml-generator"
 }

@@ -2,6 +2,21 @@
 
 Nessa aplicação Nest, a estrutura de arquivos da aplicação está da seguinte forma:
 
+## Utilização do Prisma ORM
+
+- [/prisma](../prisma/) - contêm o *schema* e outros arquivos envolvendo o ecossistema do Prisma, que é um Object-Relational Mapping (ORM) utilizado para abstrair a complexidade de se utilizar, manipular e fazer consultas dentro de um banco de dados em uma aplicação de backend do Node.js
+  - [schema.prisma](../prisma/schema.prisma) - é o ***schema*** do prisma, utilizando para mapear e modelar as entidades (tabelas do banco de dados) que vão ser utilizadas dentro da aplicação
+  - [database.db](../prisma/database.db) - é o banco de dados do SQLite, que é criado e utilizado localmente
+  - [seed.ts](../prisma/seed.ts) - arquivo com o objetivo de popular o banco de dados do SQL lite, inserindo dados fictícios
+  - [/migrations](../prisma//migrations/) - diretório que armazena as migrações (versionamento do banco de dados)
+  - [/dbml](../prisma/dbml/) - diretório que armazena o arquivo [Database Markup Language (DBML)](https://github.com/holistics/dbml) que é um **Diagram as Code** utilizado para criar o Diagrama de Entidade-Relacionamento (ER) do BD, que pode ser visualizado através da plataforma: <https://dbdiagram.io/>
+
+### Comandos utilizados do prisma
+
+- `npx prisma init`: iniciar o prisma dentro da pasta raiz
+- `npx prisma migrate dev`: criar uma migração (versionamento) para o banco de dados
+- `npx prisma studio`: ferramenta que abre no browser para visualizar e manipular os dados dos banco de dados
+
 - 📁 O diretório `/src` contêm o *source code* (código fonte) da aplicação, que possui:
   - 🛒 O módulo `categories` (categorias) que define os *endpoints* para a rota `/categories` e a lógica de negócio dessa rota.
   - 🛒O módulo `entries` (entradas) que define os *endpoints* para a rota `/entries` e a lógica de negócio dessa rota.

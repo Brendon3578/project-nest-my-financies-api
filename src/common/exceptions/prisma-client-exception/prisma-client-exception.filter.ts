@@ -9,6 +9,7 @@ export class PrismaExceptionFilter extends BaseExceptionFilter {
     const response = ctx.getResponse();
     const message = exception.message.replace(/\n/g, '');
 
+    // see also: https://www.prisma.io/docs/reference/api-reference/error-reference
     switch (exception.code) {
       // "Unique constraint failed on the {constraint}"
       // lidar com constraint (regras) do sql lite, ex: erro de inclusão de campos únicos

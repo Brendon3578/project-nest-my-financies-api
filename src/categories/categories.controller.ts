@@ -9,13 +9,16 @@ import {
   HttpCode,
   NotFoundException,
   HttpStatus,
+  UseGuards,
 } from '@nestjs/common';
 import { ParseIntPipe } from '@nestjs/common/pipes';
 import { CategoriesService } from './categories.service';
 import { CreateCategoryDto } from './dto/create-category.dto';
 import { UpdateCategoryDto } from './dto/update-category.dto';
+import { JwtAuthGuard } from '../auth/guards/jwt-auth.guard';
 
 @Controller('categories')
+@UseGuards(JwtAuthGuard)
 export class CategoriesController {
   constructor(private readonly categoriesService: CategoriesService) {}
 

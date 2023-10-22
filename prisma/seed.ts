@@ -89,7 +89,7 @@ async function main() {
   const user = await createUser({
     name: 'Brendon Gomes',
     email: 'brendonemail@email.com',
-    password: '123',
+    password: '12345678',
   });
 
   const workspace = await createWorkspace({

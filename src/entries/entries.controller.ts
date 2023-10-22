@@ -12,12 +12,15 @@ import {
   NotFoundException,
   Query,
   ParseBoolPipe,
+  UseGuards,
 } from '@nestjs/common';
 import { EntriesService } from './entries.service';
 import { CreateEntryDto } from './dto/create-entry.dto';
 import { UpdateEntryDto } from './dto/update-entry.dto';
+import { JwtAuthGuard } from '../auth/guards/jwt-auth.guard';
 
 @Controller('entries')
+@UseGuards(JwtAuthGuard)
 export class EntriesController {
   constructor(private readonly entriesService: EntriesService) {}
 

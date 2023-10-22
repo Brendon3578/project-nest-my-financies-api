@@ -40,7 +40,7 @@ Nela é definido o **módulo, controller e service** da autenticação e o **gua
 - [auth.controller.ts](../src/auth/auth.controller.ts) - controller que define a rota HTTP utilizada para se autenticar que é `auth/login`
 - [auth.service.ts](../src/auth/auth.controller.ts) - serviço que tem o papel de validar de fato, se o usuário existe ou se a senha (que está criptografada) está correta e  retornar o **token de acesso do JWT assinado**
 
-Nesse diretório também é definido o DTO da requisição POST do endpoint `auth/login` para se autenticar através do JWT, que verifica se o email e a senha é valida (se são strings, etc) e o Entity que é retornado ao fazer a requisição de autenticação, que no caso, é um json simples contendo accessToken do JWT
+Nesse diretório também é definido o DTO (parâmetros que são passados através da requisição POST) do endpoint `auth/login` para se autenticar através do JWT, que verifica se o email e a senha é valida (se são strings, etc) e o Entity que é retornado ao fazer a requisição de autenticação, que no caso, é um json simples contendo accessToken do JWT
 
 ## Utilização do Prisma ORM
 
@@ -67,7 +67,7 @@ npx prisma generate
 npx prisma migrate dev
 
 # iniciar uma interface web para visualizar e manipular os registros do banco de dados
-npx prisma studido
+npx prisma studio
 ```
 
 - 📁 O diretório `/src` contêm o *source code* (código fonte) da aplicação, que possui:

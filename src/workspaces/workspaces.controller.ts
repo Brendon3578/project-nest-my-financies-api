@@ -8,12 +8,15 @@ import {
   Delete,
   HttpCode,
   HttpStatus,
+  UseGuards,
 } from '@nestjs/common';
 import { WorkspacesService } from './workspaces.service';
 import { CreateWorkspaceDto } from './dto/create-workspace.dto';
 import { UpdateWorkspaceDto } from './dto/update-workspace.dto';
+import { JwtAuthGuard } from '../auth/guards/jwt-auth.guard';
 
 @Controller('workspaces')
+@UseGuards(JwtAuthGuard)
 export class WorkspacesController {
   constructor(private readonly workspacesService: WorkspacesService) {}
 

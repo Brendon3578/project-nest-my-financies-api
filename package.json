@@ -1,10 +1,17 @@
 {
   "name": "my-financies-api",
-  "version": "0.2.0",
-  "description": "API made with Nest JS and Prisma for project-angular-my-financies Angular application",
+  "version": "0.2.1",
+  "description": "RESTful API made with Nest JS and Prisma ORM for individual or groups financial control",
   "author": "Brendon Gomes",
   "private": true,
   "license": "MIT",
+  "keywords": [
+    "prisma",
+    "nestjs",
+    "jwt",
+    "passportjs",
+    "api"
+  ],
   "scripts": {
     "build": "nest build",
     "format": "prettier --write \"src/**/*.ts\" \"test/**/*.ts\"",

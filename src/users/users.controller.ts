@@ -25,8 +25,8 @@ export class UsersController {
     return this.usersService.create(createUserDto);
   }
 
-  @Get()
   @UseGuards(JwtAuthGuard)
+  @Get()
   findAll() {
     return this.usersService.findAll();
   }

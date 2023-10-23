@@ -3,8 +3,6 @@
   <a href="http://nestjs.com/" target="blank"><img src="https://nestjs.com/img/logo-small.svg" width="32" alt="Nest Logo" /></a>
 </h1>
 
-<center>
-
 ![NestJS](https://img.shields.io/badge/nestjs-%23E0234E.svg?style=for-the-badge&logo=nestjs&logoColor=white)
 ![Prisma](https://img.shields.io/badge/Prisma-3982CE?style=for-the-badge&logo=Prisma&logoColor=white)
 ![SQLite](https://img.shields.io/badge/sqlite-%2307405e.svg?style=for-the-badge&logo=sqlite&logoColor=white)
@@ -13,13 +11,9 @@
 ![TypeScript](https://img.shields.io/badge/typescript-%23007ACC.svg?style=for-the-badge&logo=typescript&logoColor=white)
 ![Swagger](https://img.shields.io/badge/-Swagger-%23Clojure?style=for-the-badge&logo=swagger&logoColor=white)
 
-</center>
-
-<center>
-
-  <img alt="Imagem do Swagger UI" src="./docs/assets/banner.png" width="500px">
-
-</center>
+<p align="center">
+  <img alt="Imagem do Swagger UI" src="./docs/assets/banner.png" width="580px">
+</p>
 
 ## 🗿 Projeto
 

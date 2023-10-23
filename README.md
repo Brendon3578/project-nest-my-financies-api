@@ -11,6 +11,13 @@
 ![NodeJS](https://img.shields.io/badge/node.js-6DA55F?style=for-the-badge&logo=node.js&logoColor=white)
 ![JWT](https://img.shields.io/badge/JWT-black?style=for-the-badge&logo=JSON%20web%20tokens)
 ![TypeScript](https://img.shields.io/badge/typescript-%23007ACC.svg?style=for-the-badge&logo=typescript&logoColor=white)
+![Swagger](https://img.shields.io/badge/-Swagger-%23Clojure?style=for-the-badge&logo=swagger&logoColor=white)
+
+</center>
+
+<center>
+
+  <img alt="Imagem do Swagger UI" src="./docs/assets/banner.png" width="500px">
 
 </center>
 
@@ -40,38 +47,15 @@ npx prisma db seed
 npm run start:dev
 ```
 
+> Os endpoints da API foi documentados utilizando o Swagger UI, para acessar a documentação basta inicializar a aplicação e abrir a seguinte URL `http://localhost:3000/v1/docs`
+
 ## ✨ Tecnologias
 
-- [NestJS](https://nestjs.com/): framework utilizado para criar a aplicação do servidor
-- [Prisma](https://www.prisma.io/): Object-Relational Mapping (ORM) utilizado para facilitar a conexão entre o servidor web Nest e o banco de dados SQLite criado localmente (no arquivo `db.json`)
-- [SQLite Database](https://www.sqlite.org/): Banco de dados utilizado para a implementação um banco de dados simples e rápido dentro da aplicação de forma local
-- [PassportJS](https://www.passportjs.org/): biblioteca  para autenticação de rotas do nest via estratégia [JWT ( JSON Web Token)](https://jwt.io/)
-
-## Rodando a aplicação
-
-```bash
-# aplicação no ambiente de desenvolvimento
-$ npm run start
-
-# aplicação no ambiente watch mode (observação)
-$ npm run start:dev
-
-# aplicação no ambiente de produção
-$ npm run start:prod
-```
-
-### Testes
-
-```bash
-# Rodar testes unitários
-$ npm run test
-
-# Rodar testes e2e
-$ npm run test:e2e
-
-# Ver cobertura dos testes
-$ npm run test:cov
-```
+- [NestJS](https://nestjs.com/) - framework utilizado para criar a aplicação do servidor
+- [Prisma](https://www.prisma.io/) - Object-Relational Mapping (ORM) utilizado para facilitar a conexão entre o servidor web Nest e o banco de dados SQLite criado localmente (no arquivo `db.json`)
+- [SQLite Database](https://www.sqlite.org/) - Banco de dados utilizado para a implementação um banco de dados simples e rápido dentro da aplicação de forma local
+- [PassportJS](https://www.passportjs.org/) - biblioteca  para autenticação de rotas do nest via estratégia [JWT ( JSON Web Token)](https://jwt.io/)
+- [Swagger UI](https://swagger.io/tools/swagger-ui/) - ferramenta utilizada para documentar a API através de uma Interface fácil de ser usada e manipular a API em tempo real
 
 ## 🔮 Estrutura da aplicação
 
@@ -84,6 +68,28 @@ Diagrama de Entidade-Relacionamento (ER) do Banco de Dados
 <center>
   <img src="./prisma/dbml/diagram.png" alt="Diagrama de Entidade-Relacionamento">
 </center>
+
+## Outros comandos
+
+```bash
+# aplicação no ambiente de desenvolvimento
+$ npm run start
+
+# aplicação no ambiente watch mode (observação)
+$ npm run start:dev
+
+# aplicação no ambiente de produção
+$ npm run start:prod
+
+# Rodar testes unitários
+$ npm run test
+
+# Rodar testes e2e
+$ npm run test:e2e
+
+# Ver cobertura dos testes
+$ npm run test:cov
+```
 
 <h3 align="center">
     Feito com ☕ por <a href="https://github.com/Brendon3578"> Brendon Gomes</a>

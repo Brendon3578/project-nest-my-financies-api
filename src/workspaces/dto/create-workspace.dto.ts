@@ -1,3 +1,4 @@
+import { ApiProperty } from '@nestjs/swagger';
 import {
   IsNotEmpty,
   IsOptional,
@@ -10,15 +11,18 @@ export class CreateWorkspaceDto {
   @IsNotEmpty()
   @IsString()
   @MaxLength(127)
+  @ApiProperty()
   title: string;
 
   @IsOptional()
   @IsString()
   @MaxLength(255)
+  @ApiProperty()
   description: string;
 
-  @IsNotEmpty()
-  @IsString()
   @IsUUID()
+  @IsString()
+  @IsNotEmpty()
+  @ApiProperty()
   admin_id: string;
 }

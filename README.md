@@ -3,13 +3,17 @@
   <a href="http://nestjs.com/" target="blank"><img src="https://nestjs.com/img/logo-small.svg" width="32" alt="Nest Logo" /></a>
 </h1>
 
-![NestJS](https://img.shields.io/badge/nestjs-%23E0234E.svg?style=for-the-badge&logo=nestjs&logoColor=white)
-![Prisma](https://img.shields.io/badge/Prisma-3982CE?style=for-the-badge&logo=Prisma&logoColor=white)
-![SQLite](https://img.shields.io/badge/sqlite-%2307405e.svg?style=for-the-badge&logo=sqlite&logoColor=white)
-![NodeJS](https://img.shields.io/badge/node.js-6DA55F?style=for-the-badge&logo=node.js&logoColor=white)
-![JWT](https://img.shields.io/badge/JWT-black?style=for-the-badge&logo=JSON%20web%20tokens)
-![TypeScript](https://img.shields.io/badge/typescript-%23007ACC.svg?style=for-the-badge&logo=typescript&logoColor=white)
-![Swagger](https://img.shields.io/badge/-Swagger-%23Clojure?style=for-the-badge&logo=swagger&logoColor=white)
+<p align="center">
+
+  ![NestJS](https://img.shields.io/badge/nestjs-%23E0234E.svg?style=for-the-badge&logo=nestjs&logoColor=white)
+  ![Prisma](https://img.shields.io/badge/Prisma-3982CE?style=for-the-badge&logo=Prisma&logoColor=white)
+  ![SQLite](https://img.shields.io/badge/sqlite-%2307405e.svg?style=for-the-badge&logo=sqlite&logoColor=white)
+  ![NodeJS](https://img.shields.io/badge/node.js-6DA55F?style=for-the-badge&logo=node.js&logoColor=white)
+  ![JWT](https://img.shields.io/badge/JWT-black?style=for-the-badge&logo=JSON%20web%20tokens)
+  ![TypeScript](https://img.shields.io/badge/typescript-%23007ACC.svg?style=for-the-badge&logo=typescript&logoColor=white)
+  ![Swagger](https://img.shields.io/badge/-Swagger-%23Clojure?style=for-the-badge&logo=swagger&logoColor=white)
+
+</p>
 
 <p align="center">
   <img alt="Imagem do Swagger UI" src="./docs/assets/banner.png" width="580px">
@@ -17,9 +21,15 @@
 
 ## 🗿 Projeto
 
-Essa aplicação é um Backend de servidor web RESTful criado com o framework **NestJS** para controle de financias pessoais (ou grupo de pessoas ou um projeto)
+Essa aplicação é um Backend de um domínio de **Controle Financeiro**, no qual um usuário ou grupo de usuários pode controlar seus gastos financeiros (receitas e despesas) e visualizá-las filtrando por mês e ano, ou visualizá-los por responsáveis.
 
-Ele foi feito para servir de Back-end de API para outra aplicação web de front-end feita com o framework Angular chamada [Minhas Financias](https://github.com/Brendon3578/project-angular-my-financies)
+> Um **Usuário autenticado** cria uma **Área de Trabalho** e nela, é criada as **entradas financeiras** (receitas e despesas), que são **categorizadas** por meio de **Categorias** que o próprio usuário cria.
+>
+> É possível que **Usuários** crie quantas **Área de Trabalho** ele desejar, e convidar outros **usuários** para participar também do controle financeiro dessa área de trabalho
+
+A arquitetura desse Backend baseia-se sendo um servidor web RESTful criado com o framework **NestJS**, que utiliza do **Prisma ORM** para fazer consultas no banco de dados **SQLite** criado localmente.
+
+Ele tem a finalidade de validar as requisições feitas pela interface web (outra aplicação [Minhas Financias](https://github.com/Brendon3578/project-angular-my-financies) criada em Angular), validando essas requisições antes de interagirem propriamente com o Banco de dados.
 
 Com ele é possível:
 
@@ -37,11 +47,11 @@ npm install
 # Popular o banco de dados através do Prisma (prisma/seed.ts)
 npx prisma db seed
 
-# Iniciar o servidor nest no ambiente de desenvolvimento na porta 3000
+# Iniciar o servidor nest no ambiente de desenvolvimento na porta 3000 (http://localhost:3000)
 npm run start:dev
 ```
 
-> Os endpoints da API foi documentados utilizando o Swagger UI, para acessar a documentação basta inicializar a aplicação e abrir a seguinte URL `http://localhost:3000/v1/docs`
+Os endpoints da API foi documentados utilizando o Swagger UI, para acessar a documentação basta inicializar a aplicação e abrir a seguinte URL `http://localhost:3000/v1/docs`
 
 ## ✨ Tecnologias
 

@@ -36,16 +36,7 @@ async function bootstrap() {
       'RESTful API made with Nest JS and Prisma ORM for individual or groups financial control',
     )
     .setVersion('0.2.1')
-    .addBearerAuth(
-      {
-        type: 'http',
-        scheme: 'bearer',
-        in: 'header',
-        bearerFormat: 'JWT',
-        description: 'JWT Default Authentication',
-      },
-      'access-token',
-    )
+    .addBearerAuth()
     .build();
 
   const document = SwaggerModule.createDocument(app, config);

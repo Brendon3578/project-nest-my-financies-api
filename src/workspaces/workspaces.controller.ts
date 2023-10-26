@@ -19,12 +19,13 @@ import {
   ApiCreatedResponse,
   ApiNoContentResponse,
   ApiOkResponse,
+  ApiOperation,
   ApiTags,
 } from '@nestjs/swagger';
 import { WorkspaceEntity } from './entities/workspace.entity';
 import { UserOnWorkspaceEntity } from './entities/user-on-workspace.entity';
-import { UserEntity } from '../users/entities/user.entity';
 import { CategoryEntity } from '../categories/entities/category.entity';
+import { WorkspaceUsersEntity } from './entities/workspace-users.entity';
 
 @Controller('workspaces')
 @UseGuards(JwtAuthGuard)
@@ -69,13 +70,25 @@ export class WorkspacesController {
 
   // user relationship
   @Get(':id/users')
-  @ApiOkResponse({ type: UserEntity, isArray: true })
-  findAllUsersInWorkspace(@Param('id') workspace_id: string) {
-    return this.workspacesService.findAllUsersInWorkspace(workspace_id);
+  @ApiOkResponse({ type: WorkspaceUsersEntity, isArray: true })
+  async findAllUsersInWorkspace(@Param('id') workspace_id: string) {
+    const workspaceUsers =
+      await this.workspacesService.findAllUsersInWorkspace(workspace_id);
+    const result = workspaceUsers.map((workspaceUsers) => {
+      const filteredUser = {
+        ...workspaceUsers,
+        joined_in: workspaceUsers.UsersOnWorkspaces[0].joined_in,
+      };
+      delete filteredUser.UsersOnWorkspaces;
+      return filteredUser;
+    });
+
+    return result;
   }
 
   @Post(':id/users/:user-id')
   @ApiCreatedResponse({ type: UserOnWorkspaceEntity })
+  @ApiOperation({ summary: 'Join user on workspace' })
   async createUserOnWorkspace(
     @Param('id') workspace_id: string,
     @Param('user-id') user_id: string,

@@ -53,13 +53,18 @@ Table Entry {
   paid Boolean [not null, default: false]
   date DateTime [default: `now()`, not null]
   value Decimal [not null]
-  type String [not null]
+  type EntryType [not null, default: 'despesa']
   category_id Int [not null]
   workspace_id String [not null]
   author_id String [not null]
   Creator User [not null]
   Category Category [not null]
   Workspace Workspace [not null]
+}
+
+Enum EntryType {
+  receita
+  despesa
 }
 
 Ref: UsersOnWorkspaces.user_id > User.id

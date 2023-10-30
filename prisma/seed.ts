@@ -1,5 +1,5 @@
 // run: 'npx prisma db seed'
-import { PrismaClient } from '@prisma/client';
+import { EntryType, PrismaClient } from '@prisma/client';
 
 import * as bcrypt from 'bcrypt';
 
@@ -111,7 +111,7 @@ async function main() {
     name: 'instância EC2 t2.micro',
     description: 'Faturamento mensal da instância EC2 t2.micro Linux',
     paid: true,
-    type: 'saldo',
+    type: EntryType.despesa,
     date: dateWithSpecificMonth(7),
     value: 30.3,
   });

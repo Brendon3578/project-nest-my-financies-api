@@ -11,12 +11,12 @@ generator dbml {
 }
 
 datasource db {
-  provider = "sqlite"
-  url      = "file:./database.db"
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
 }
 
 model User {
-  id        String  @id @default(uuid())
+  id        String  @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
   name      String
   email     String  @unique
   password  String
@@ -30,7 +30,7 @@ model User {
 }
 
 model Workspace {
-  id          String  @id @default(uuid())
+  id          String  @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
   title       String
   description String?
   admin_id    String
@@ -43,8 +43,8 @@ model Workspace {
 }
 
 model UsersOnWorkspaces {
-  user_id      String
-  workspace_id String
+  user_id      String   @db.Uuid
+  workspace_id String   @db.Uuid
   joined_in    DateTime @default(now())
 
   User      User      @relation(fields: [user_id], references: [id])
@@ -57,25 +57,30 @@ model Category {
   id           Int     @id @default(autoincrement())
   name         String
   description  String?
-  workspace_id String
+  workspace_id String  @db.Uuid
 
   Workspace Workspace @relation(fields: [workspace_id], references: [id])
   Entries   Entry[]
 }
 
 model Entry {
-  id           Int      @id @default(autoincrement())
+  id           Int       @id @default(autoincrement())
   name         String
   description  String?
-  paid         Boolean  @default(false)
-  date         DateTime @default(now())
+  paid         Boolean   @default(false)
+  date         DateTime  @default(now())
   value        Decimal
-  type         String
+  type         EntryType @default(despesa)
   category_id  Int
-  workspace_id String
-  author_id    String
+  workspace_id String    @db.Uuid
+  author_id    String    @db.Uuid
 
   Creator   User      @relation(fields: [author_id], references: [id])
   Category  Category  @relation(fields: [category_id], references: [id])
   Workspace Workspace @relation(fields: [workspace_id], references: [id])
+}
+
+enum EntryType {
+  receita
+  despesa
 }

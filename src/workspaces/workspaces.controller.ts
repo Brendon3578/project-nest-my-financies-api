@@ -71,24 +71,13 @@ export class WorkspacesController {
   // user relationship
   @Get(':id/users')
   @ApiOkResponse({ type: WorkspaceUsersEntity, isArray: true })
-  async findAllUsersInWorkspace(@Param('id') workspace_id: string) {
-    const workspaceUsers =
-      await this.workspacesService.findAllUsersInWorkspace(workspace_id);
-    const result = workspaceUsers.map((workspaceUsers) => {
-      const filteredUser = {
-        ...workspaceUsers,
-        joined_in: workspaceUsers.UsersOnWorkspaces[0].joined_in,
-      };
-      delete filteredUser.UsersOnWorkspaces;
-      return filteredUser;
-    });
-
-    return result;
+  findAllUsersInWorkspace(@Param('id') workspace_id: string) {
+    return this.workspacesService.findAllUsersInWorkspace(workspace_id);
   }
 
   @Post(':id/users/:user-id')
-  @ApiCreatedResponse({ type: UserOnWorkspaceEntity })
   @ApiOperation({ summary: 'Join user on workspace' })
+  @ApiCreatedResponse({ type: UserOnWorkspaceEntity })
   async createUserOnWorkspace(
     @Param('id') workspace_id: string,
     @Param('user-id') user_id: string,
@@ -98,6 +87,7 @@ export class WorkspacesController {
 
   @Delete(':id/users/:user-id')
   @HttpCode(HttpStatus.NO_CONTENT)
+  @ApiOperation({ summary: 'Remove user from workspace' })
   @ApiNoContentResponse()
   async deleteUserFromWorkspace(
     @Param(':id') workspace_id: string,
@@ -111,8 +101,9 @@ export class WorkspacesController {
 
   // categories relationships
   @Get(':id/categories')
+  @ApiOperation({ summary: 'Find all categories in workspace' })
   @ApiOkResponse({ type: CategoryEntity, isArray: true })
   findAllCategoriesInWorkspace(@Param('id') workspace_id: string) {
-    return this.workspacesService.findAllCategoriesInWorkspace(workspace_id);
+    return this.workspacesService.findAllCategoriesByWorkspace(workspace_id);
   }
 }

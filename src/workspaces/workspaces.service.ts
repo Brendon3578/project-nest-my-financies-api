@@ -3,6 +3,7 @@ import { CreateWorkspaceDto } from './dto/create-workspace.dto';
 import { UpdateWorkspaceDto } from './dto/update-workspace.dto';
 import { PrismaService } from '../common/prisma/prisma.service';
 import { InvalidRelationError } from '../common/errors/invalid-relation.error';
+import { UserEntity } from '../users/entities/user.entity';
 
 @Injectable()
 export class WorkspacesService {
@@ -73,18 +74,7 @@ export class WorkspacesService {
     });
   }
 
-  // categories relationships
-  findAllCategoriesInWorkspace(workspace_id: string) {
-    return this.prisma.category.findMany({
-      where: {
-        Workspace: {
-          id: workspace_id,
-        },
-      },
-    });
-  }
-
-  // users relationships
+  // users on workspaces relationships
   async createUserInWorkspace(workspace_id: string, user_id: string) {
     // TODO: verify if workspace and user is valid
     await this.prisma.usersOnWorkspaces.create({
@@ -106,8 +96,8 @@ export class WorkspacesService {
     });
   }
 
-  findAllUsersInWorkspace(workspace_id: string) {
-    return this.prisma.user.findMany({
+  async findAllUsersInWorkspace(workspace_id: string) {
+    const users = await this.prisma.user.findMany({
       where: {
         UsersOnWorkspaces: {
           some: {
@@ -124,6 +114,27 @@ export class WorkspacesService {
           where: {
             workspace_id,
           },
+        },
+      },
+    });
+
+    const workspaceUsers = users.map((workspaceUsers) => {
+      const filteredUser = {
+        ...workspaceUsers,
+        joined_in: workspaceUsers.UsersOnWorkspaces[0].joined_in,
+      };
+      delete filteredUser.UsersOnWorkspaces;
+      return filteredUser;
+    });
+
+    return workspaceUsers.map((user) => new UserEntity(user));
+  }
+
+  findAllCategoriesByWorkspace(workspace_id: string) {
+    return this.prisma.category.findMany({
+      where: {
+        Workspace: {
+          id: workspace_id,
         },
       },
     });

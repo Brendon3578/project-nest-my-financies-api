@@ -87,14 +87,14 @@ const dateWithSpecificMonth = (month: number = 1) =>
 async function main() {
   // criar duas categorias "dummy" (burras - sem valor)
   const user = await createUser({
-    name: 'Brendon Gomes',
-    email: 'brendonemail@email.com',
-    password: '12345678',
+    name: 'Tester user',
+    email: 'testeruser@email.com',
+    password: '123',
   });
 
   const workspace = await createWorkspace({
     admin_id: user.id,
-    title: 'Faturamento da AWS',
+    title: 'Área de Trabalho de Teste sobre Faturamento da AWS',
     description: 'Faturamento do projeto AWS - FinOps',
   });
 

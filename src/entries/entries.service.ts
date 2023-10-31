@@ -73,4 +73,31 @@ export class EntriesService {
       },
     });
   }
+
+  // workspace relationship (in workspace controller)
+  findAllByWorkspace(workspace_id: string) {
+    return this.prisma.entry.findMany({
+      where: {
+        workspace_id,
+      },
+    });
+  }
+
+  findAllByWorkspaceByAuthor(workspace_id: string, author_id: string) {
+    return this.prisma.entry.findMany({
+      where: {
+        workspace_id,
+        author_id,
+      },
+    });
+  }
+
+  findAllByWorkspacePaid(workspace_id: string, paid: boolean) {
+    return this.prisma.entry.findMany({
+      where: {
+        workspace_id,
+        paid,
+      },
+    });
+  }
 }

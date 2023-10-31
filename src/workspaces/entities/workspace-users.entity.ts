@@ -1,7 +1,13 @@
 import { ApiProperty, ApiPropertyOptional } from '@nestjs/swagger';
 import { User } from '@prisma/client';
+import { Exclude } from 'class-transformer';
+import { UserOnWorkspaceEntity } from './user-on-workspace.entity';
 
 export class WorkspaceUsersEntity implements User {
+  constructor(partial: Partial<UserOnWorkspaceEntity>) {
+    Object.assign(this, partial);
+  }
+
   @ApiProperty()
   id: string;
 
@@ -20,8 +26,9 @@ export class WorkspaceUsersEntity implements User {
   @ApiProperty()
   updated_at: Date;
 
-  password: string;
-
   @ApiProperty()
   joined_in: Date;
+
+  @Exclude()
+  password: string;
 }

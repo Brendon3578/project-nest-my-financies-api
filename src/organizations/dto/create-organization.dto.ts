@@ -7,7 +7,7 @@ import {
   MaxLength,
 } from 'class-validator';
 
-export class CreateWorkspaceDto {
+export class CreateOrganizationDto {
   @IsNotEmpty()
   @IsString()
   @MaxLength(127)

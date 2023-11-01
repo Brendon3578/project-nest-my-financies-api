@@ -10,7 +10,7 @@ CREATE TABLE "User" (
 );
 
 -- CreateTable
-CREATE TABLE "Workspace" (
+CREATE TABLE "Organization" (
     "id" TEXT NOT NULL PRIMARY KEY,
     "title" TEXT NOT NULL,
     "description" TEXT,
@@ -19,14 +19,14 @@ CREATE TABLE "Workspace" (
 );
 
 -- CreateTable
-CREATE TABLE "UsersOnWorkspaces" (
+CREATE TABLE "UsersOnOrganizations" (
     "user_id" TEXT NOT NULL,
-    "workspace_id" TEXT NOT NULL,
+    "organization_id" TEXT NOT NULL,
     "joined_in" DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
 
-    PRIMARY KEY ("user_id", "workspace_id"),
-    CONSTRAINT "UsersOnWorkspaces_user_id_fkey" FOREIGN KEY ("user_id") REFERENCES "User" ("id") ON DELETE RESTRICT ON UPDATE CASCADE,
-    CONSTRAINT "UsersOnWorkspaces_workspace_id_fkey" FOREIGN KEY ("workspace_id") REFERENCES "Workspace" ("id") ON DELETE RESTRICT ON UPDATE CASCADE
+    PRIMARY KEY ("user_id", "organization_id"),
+    CONSTRAINT "UsersOnOrganizations_user_id_fkey" FOREIGN KEY ("user_id") REFERENCES "User" ("id") ON DELETE RESTRICT ON UPDATE CASCADE,
+    CONSTRAINT "UsersOnOrganizations_organization_id_fkey" FOREIGN KEY ("organization_id") REFERENCES "Organization" ("id") ON DELETE RESTRICT ON UPDATE CASCADE
 );
 
 -- CreateTable
@@ -34,8 +34,8 @@ CREATE TABLE "Category" (
     "id" INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
     "name" TEXT NOT NULL,
     "description" TEXT,
-    "workspace_id" TEXT NOT NULL,
-    CONSTRAINT "Category_workspace_id_fkey" FOREIGN KEY ("workspace_id") REFERENCES "Workspace" ("id") ON DELETE RESTRICT ON UPDATE CASCADE
+    "organization_id" TEXT NOT NULL,
+    CONSTRAINT "Category_organization_id_fkey" FOREIGN KEY ("organization_id") REFERENCES "Organization" ("id") ON DELETE RESTRICT ON UPDATE CASCADE
 );
 
 -- CreateTable
@@ -48,11 +48,11 @@ CREATE TABLE "Entry" (
     "value" DECIMAL NOT NULL,
     "type" TEXT NOT NULL,
     "category_id" INTEGER NOT NULL,
-    "workspace_id" TEXT NOT NULL,
+    "organization_id" TEXT NOT NULL,
     "author_id" TEXT NOT NULL,
     CONSTRAINT "Entry_author_id_fkey" FOREIGN KEY ("author_id") REFERENCES "User" ("id") ON DELETE RESTRICT ON UPDATE CASCADE,
     CONSTRAINT "Entry_category_id_fkey" FOREIGN KEY ("category_id") REFERENCES "Category" ("id") ON DELETE RESTRICT ON UPDATE CASCADE,
-    CONSTRAINT "Entry_workspace_id_fkey" FOREIGN KEY ("workspace_id") REFERENCES "Workspace" ("id") ON DELETE RESTRICT ON UPDATE CASCADE
+    CONSTRAINT "Entry_organization_id_fkey" FOREIGN KEY ("organization_id") REFERENCES "Organization" ("id") ON DELETE RESTRICT ON UPDATE CASCADE
 );
 
 -- CreateIndex

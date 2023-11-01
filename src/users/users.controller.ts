@@ -72,11 +72,11 @@ export class UsersController {
   }
 
   // user relationships
-  @Get(':id/workspaces')
+  @Get(':id/organizations')
   @UseGuards(JwtAuthGuard)
   @ApiBearerAuth()
   @ApiOkResponse({ type: UserEntity, isArray: true })
-  findAllUserWorkspaces(@Param('id') workspace_id: string) {
-    return this.usersService.findAllUserWorkspaces(workspace_id);
+  findAllUserOrganizations(@Param('id') organization_id: string) {
+    return this.usersService.findAllUserOrganizations(organization_id);
   }
 }

@@ -12,5 +12,5 @@ export class CategoryEntity implements Category {
   description: string | null;
 
   @ApiProperty()
-  workspace_id: string;
+  organization_id: string;
 }

@@ -64,11 +64,11 @@ export class UsersService {
     );
   }
 
-  // workspaces relationship
-  findAllUserWorkspaces(id: string) {
-    return this.prisma.workspace.findMany({
+  // organizations relationship
+  findAllUserOrganizations(id: string) {
+    return this.prisma.organization.findMany({
       where: {
-        UsersOnWorkspaces: {
+        UsersOnOrganizations: {
           every: {
             user_id: id,
           },

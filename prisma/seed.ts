@@ -25,8 +25,8 @@ async function createUser({ name, email, password }) {
   });
 }
 
-async function createWorkspace({ admin_id, title, description }) {
-  const workspace = await prisma.workspace.create({
+async function createOrganization({ admin_id, title, description }) {
+  const organization = await prisma.organization.create({
     data: {
       admin_id,
       title,
@@ -35,20 +35,20 @@ async function createWorkspace({ admin_id, title, description }) {
   });
 
   // create relationship
-  await prisma.usersOnWorkspaces.create({
+  await prisma.usersOnOrganizations.create({
     data: {
       user_id: admin_id,
-      workspace_id: workspace.id,
+      organization_id: organization.id,
     },
   });
 
-  return workspace;
+  return organization;
 }
 
-async function createCategory({ workspace_id, name, description }) {
+async function createCategory({ organization_id, name, description }) {
   return await prisma.category.create({
     data: {
-      workspace_id,
+      organization_id,
       name,
       description,
     },
@@ -58,7 +58,7 @@ async function createCategory({ workspace_id, name, description }) {
 async function createEntry({
   author_id,
   category_id,
-  workspace_id,
+  organization_id,
   name,
   description,
   value,
@@ -76,7 +76,7 @@ async function createEntry({
       type,
       category_id,
       author_id,
-      workspace_id,
+      organization_id,
     },
   });
 }
@@ -92,21 +92,21 @@ async function main() {
     password: '123',
   });
 
-  const workspace = await createWorkspace({
+  const organization = await createOrganization({
     admin_id: user.id,
     title: 'Área de Trabalho de Teste sobre Faturamento da AWS',
     description: 'Faturamento do projeto AWS - FinOps',
   });
 
   const category = await createCategory({
-    workspace_id: workspace.id,
+    organization_id: organization.id,
     name: 'Amazon EC2',
     description: 'Faturamento mensal de instâncias EC2 da AWS',
   });
 
   const entry = await createEntry({
     category_id: category.id,
-    workspace_id: workspace.id,
+    organization_id: organization.id,
     author_id: user.id,
     name: 'instância EC2 t2.micro',
     description: 'Faturamento mensal da instância EC2 t2.micro Linux',
@@ -116,7 +116,7 @@ async function main() {
     value: 30.3,
   });
 
-  console.log({ user, workspace, category, entry });
+  console.log({ user, organization, category, entry });
 }
 
 // executar a função principal

@@ -1,10 +1,10 @@
 import { ApiProperty, ApiPropertyOptional } from '@nestjs/swagger';
 import { User } from '@prisma/client';
 import { Exclude } from 'class-transformer';
-import { UserOnWorkspaceEntity } from './user-on-workspace.entity';
+import { UserOnOrganizationEntity } from './user-on-organization.entity';
 
-export class WorkspaceUsersEntity implements User {
-  constructor(partial: Partial<UserOnWorkspaceEntity>) {
+export class OrganizationUsersEntity implements User {
+  constructor(partial: Partial<UserOnOrganizationEntity>) {
     Object.assign(this, partial);
   }
 

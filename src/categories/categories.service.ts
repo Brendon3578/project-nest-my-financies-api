@@ -9,12 +9,13 @@ export class CategoriesService {
   constructor(private prisma: PrismaService) {}
 
   async create(createCategoryDto: CreateCategoryDto) {
-    const workspaceExists =
-      (await this.prisma.workspace.count({
-        where: { id: createCategoryDto.workspace_id },
+    const organizationExists =
+      (await this.prisma.organization.count({
+        where: { id: createCategoryDto.organization_id },
       })) != 0;
 
-    if (!workspaceExists) throw new InvalidRelationError('Workspace not found');
+    if (!organizationExists)
+      throw new InvalidRelationError('Organization not found');
 
     return this.prisma.category.create({
       data: createCategoryDto,

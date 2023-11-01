@@ -23,9 +23,9 @@
 
 Essa aplicação é um Backend de um domínio de **Controle Financeiro**, no qual um usuário ou grupo de usuários pode controlar seus gastos financeiros (receitas e despesas) e visualizá-las filtrando por mês e ano, ou visualizá-los por responsáveis.
 
-> Um **Usuário autenticado** cria uma **Área de Trabalho** e nela, é criada as **entradas financeiras** (receitas e despesas), que são **categorizadas** por meio de **Categorias** que o próprio usuário cria.
+> Um **Usuário autenticado** cria uma **Organização** e nela, é criada as **entradas financeiras** (receitas e despesas), que são **categorizadas** por meio de **Categorias** que o próprio usuário cria.
 >
-> É possível que **Usuários** crie quantas **Área de Trabalho** ele desejar, e convidar outros **usuários** para participar também do controle financeiro dessa área de trabalho
+> É possível que **Usuários** crie quantas **Organizações** ele desejar, e convidar outros **usuários** para participar também do controle financeiro dessa organização
 
 A arquitetura desse Backend baseia-se sendo um servidor web RESTful criado com o framework **NestJS**, que utiliza do **Prisma ORM** para fazer consultas no banco de dados **SQLite** criado localmente.
 
@@ -35,8 +35,8 @@ Com ele é possível:
 
 - Cadastrar e autenticar usuário via JWT (JSON Web Tokens)
 - Criar financias de despesa e entrada para controle financeiro e categorizá-las via tags de categorias
-- Criar áreas de trabalho para centralizar os gastos financeiros de equipes ou setores
-- Adicionar ou remover Usuários dentro dessa área de trabalho permitindo a colaboração e monitoramento continuo nos gastos
+- Criar organizações para centralizar os gastos financeiros de equipes ou setores
+- Adicionar ou remover Usuários dentro dessa organização permitindo a colaboração e monitoramento continuo nos gastos
 
 ## 🔥 Iniciar a aplicação
 

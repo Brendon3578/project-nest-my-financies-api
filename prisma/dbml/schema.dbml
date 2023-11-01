@@ -57,7 +57,7 @@ Table Entry {
   category_id Int [not null]
   organization_id String [not null]
   author_id String [not null]
-  Creator User [not null]
+  Author User [not null]
   Category Category [not null]
   Organization Organization [not null]
 }

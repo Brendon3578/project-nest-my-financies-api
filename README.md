@@ -67,11 +67,13 @@ Para ver a estrutura da aplicação o funcionamento de cada parte da aplicação
 
 ## Estrutura do Banco de Dados
 
-Diagrama de Entidade-Relacionamento (ER) do Banco de Dados
+Diagrama de Entidade-Relacionamento (ER) do Banco de Dados, gerado via linguagem DBML (Database Markup Language) e a plataforma [DB Diagram](https://dbdiagram.io/d)
 
-<center>
-  <img src="./prisma/dbml/diagram.png" alt="Diagrama de Entidade-Relacionamento">
-</center>
+<p align="center">
+  <kbd>
+    <img src="./prisma/dbml/diagram.png" alt="Diagrama de Entidade-Relacionamento">
+  </kbd>
+</p>
 
 ## Outros comandos
 

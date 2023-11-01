@@ -16,7 +16,7 @@ datasource db {
 }
 
 model User {
-  id        String  @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  id        String  @id @default(uuid())
   name      String
   email     String  @unique
   password  String
@@ -75,7 +75,7 @@ model Entry {
   organization_id String
   author_id       String
 
-  Creator      User         @relation(fields: [author_id], references: [id])
+  Author       User         @relation(fields: [author_id], references: [id])
   Category     Category     @relation(fields: [category_id], references: [id])
   Organization Organization @relation(fields: [organization_id], references: [id])
 }

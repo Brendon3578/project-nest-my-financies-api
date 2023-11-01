@@ -139,4 +139,14 @@ export class OrganizationsService {
       },
     });
   }
+
+  findAllEntriesByOrganization(organization_id: string) {
+    return this.prisma.entry.findMany({
+      where: {
+        Organization: {
+          id: organization_id,
+        },
+      },
+    });
+  }
 }

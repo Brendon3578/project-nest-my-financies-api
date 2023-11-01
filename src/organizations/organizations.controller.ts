@@ -26,6 +26,7 @@ import { OrganizationEntity } from './entities/organization.entity';
 import { UserOnOrganizationEntity } from './entities/user-on-organization.entity';
 import { CategoryEntity } from '../categories/entities/category.entity';
 import { OrganizationUsersEntity } from './entities/organization-users.entity';
+import { EntryEntity } from '../entries/entities/entry.entity';
 
 @Controller('organizations')
 @UseGuards(JwtAuthGuard)
@@ -35,6 +36,7 @@ export class OrganizationsController {
   constructor(private readonly organizationsService: OrganizationsService) {}
 
   @Post()
+  @ApiOperation({ summary: '' })
   @ApiCreatedResponse({ type: OrganizationEntity })
   create(@Body() createOrganizationDto: CreateOrganizationDto) {
     return this.organizationsService.create(createOrganizationDto);
@@ -70,6 +72,7 @@ export class OrganizationsController {
 
   // user relationship
   @Get(':id/users')
+  @ApiOperation({ summary: 'List all users in organization' })
   @ApiOkResponse({ type: OrganizationUsersEntity, isArray: true })
   findAllUsersInOrganization(@Param('id') organization_id: string) {
     return this.organizationsService.findAllUsersInOrganization(
@@ -113,4 +116,18 @@ export class OrganizationsController {
       organization_id,
     );
   }
+
+  // entries relationships
+  @Get(':id/entries')
+  @ApiOperation({ summary: 'Find all entries in organization' })
+  @ApiOkResponse({ type: EntryEntity, isArray: true })
+  findAllEntriesInOrganization(@Param('id') organization_id: string) {
+    return this.organizationsService.findAllEntriesByOrganization(
+      organization_id,
+    );
+  }
+
+  // TODO:
+  // - update entry endpoint to /:workspace_id/entries
+  // - update categories endpoint to /:workspace_id/categories
 }

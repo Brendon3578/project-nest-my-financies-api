@@ -1,6 +1,6 @@
 {
   "name": "my-financies-api",
-  "version": "0.2.5",
+  "version": "0.3",
   "description": "RESTful API made with Nest JS and Prisma ORM for individual or groups financial control",
   "author": "Brendon Gomes",
   "private": true,

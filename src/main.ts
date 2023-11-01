@@ -40,9 +40,9 @@ async function bootstrap() {
   const config = new DocumentBuilder()
     .setTitle('Financies API')
     .setDescription(
-      'RESTful API made with Nest JS and Prisma ORM for individual or groups financial control',
+      "RESTful API made with Nest JS and Prisma ORM for individual or organization's financial control",
     )
-    .setVersion('0.2.1')
+    .setVersion('0.3')
     .addBearerAuth()
     .build();
 

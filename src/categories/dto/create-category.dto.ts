@@ -16,5 +16,5 @@ export class CreateCategoryDto {
 
   @IsString()
   @ApiProperty()
-  workspace_id: string;
+  organization_id: string;
 }

@@ -3,6 +3,7 @@ import { CreateUserDto } from './dto/create-user.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
 import { PrismaService } from '../common/prisma/prisma.service';
 import * as bcrypt from 'bcrypt';
+import { UserEntity } from './entities/user.entity';
 
 export const roundsOfHashing = 10;
 
@@ -19,19 +20,24 @@ export class UsersService {
 
     createUserDto.password = hashedPassword;
 
-    return this.prisma.user.create({
-      data: createUserDto,
-    });
+    return new UserEntity(
+      await this.prisma.user.create({
+        data: createUserDto,
+      }),
+    );
   }
 
-  findAll() {
-    return this.prisma.user.findMany();
+  async findAll() {
+    const users = await this.prisma.user.findMany();
+    return users.map((user) => new UserEntity(user));
   }
 
-  findOneById(id: string) {
-    return this.prisma.user.findUnique({
-      where: { id },
-    });
+  async findOneById(id: string) {
+    return new UserEntity(
+      await this.prisma.user.findUnique({
+        where: { id },
+      }),
+    );
   }
 
   async update(id: string, updateUserDto: UpdateUserDto) {
@@ -42,23 +48,27 @@ export class UsersService {
       );
     }
 
-    return this.prisma.user.update({
-      data: updateUserDto,
-      where: { id },
-    });
+    return new UserEntity(
+      await this.prisma.user.update({
+        data: updateUserDto,
+        where: { id },
+      }),
+    );
   }
 
-  remove(id: string) {
-    return this.prisma.user.delete({
-      where: { id },
-    });
+  async remove(id: string) {
+    return new UserEntity(
+      await this.prisma.user.delete({
+        where: { id },
+      }),
+    );
   }
 
-  // workspaces relationship
-  findAllUserWorkspaces(id: string) {
-    return this.prisma.workspace.findMany({
+  // organizations relationship
+  findAllUserOrganizations(id: string) {
+    return this.prisma.organization.findMany({
       where: {
-        UsersOnWorkspaces: {
+        UsersOnOrganizations: {
           every: {
             user_id: id,
           },

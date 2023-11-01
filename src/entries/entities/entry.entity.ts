@@ -28,7 +28,7 @@ export class EntryEntity implements Entry {
   category_id: number;
 
   @ApiProperty()
-  workspace_id: string;
+  organization_id: string;
 
   @ApiProperty()
   author_id: string;

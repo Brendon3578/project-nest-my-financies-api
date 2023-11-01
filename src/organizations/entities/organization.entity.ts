@@ -1,7 +1,7 @@
 import { ApiProperty, ApiPropertyOptional } from '@nestjs/swagger';
-import { Workspace } from '@prisma/client';
+import { Organization } from '@prisma/client';
 
-export class WorkspaceEntity implements Workspace {
+export class OrganizationEntity implements Organization {
   @ApiProperty()
   id: string;
 

@@ -1,6 +1,10 @@
-import { HttpAdapterHost, NestFactory } from '@nestjs/core';
+import { HttpAdapterHost, NestFactory, Reflector } from '@nestjs/core';
 import { AppModule } from './app.module';
-import { HttpStatus, ValidationPipe } from '@nestjs/common';
+import {
+  HttpStatus,
+  ValidationPipe,
+  ClassSerializerInterceptor,
+} from '@nestjs/common';
 import { PrismaExceptionFilter } from './common/exceptions/prisma-client-exception/prisma-client-exception.filter';
 import { InvalidRelationExceptionFilter } from './common/exceptions/invalid-relation-exception/invalid-relation-exception.filter';
 import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
@@ -13,7 +17,7 @@ async function bootstrap() {
   app.useStaticAssets(join(__dirname, '..', 'public'), {
     prefix: '/public/',
   });
-  console.log(join(__dirname, '..', 'public'));
+  //console.log(join(__dirname, '..', 'public'));
 
   app.useGlobalPipes(
     new ValidationPipe({
@@ -21,6 +25,9 @@ async function bootstrap() {
       stopAtFirstError: true, // quando retornar as mensagens, retornar apenas o primeiro erro ocorrido
     }),
   );
+
+  // impedir que o password apareça no DTO do user
+  app.useGlobalInterceptors(new ClassSerializerInterceptor(app.get(Reflector)));
 
   const { httpAdapter } = app.get(HttpAdapterHost);
 

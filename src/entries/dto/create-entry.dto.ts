@@ -59,7 +59,7 @@ export class CreateEntryDto {
   @IsString()
   @IsNotEmpty()
   @ApiProperty()
-  workspace_id: string;
+  organization_id: string;
 
   @IsUUID()
   @IsString()

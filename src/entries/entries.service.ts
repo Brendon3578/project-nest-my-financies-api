@@ -14,15 +14,15 @@ export class EntriesService {
         where: { id: createEntryDto.category_id },
       })) != 0;
 
-    const workspaceExists =
-      (await this.prisma.workspace.count({
-        where: { id: createEntryDto.workspace_id },
+    const organizationExists =
+      (await this.prisma.organization.count({
+        where: { id: createEntryDto.organization_id },
       })) != 0;
 
     if (!categoryExists) {
       throw new InvalidRelationError('Category not found');
-    } else if (!workspaceExists) {
-      throw new InvalidRelationError('Workspace not found');
+    } else if (!organizationExists) {
+      throw new InvalidRelationError('Organization not found');
     }
 
     return this.prisma.entry.create({
@@ -70,6 +70,33 @@ export class EntriesService {
     return this.prisma.entry.findMany({
       where: {
         author_id: author_id,
+      },
+    });
+  }
+
+  // organization relationship (in organization controller)
+  findAllByOrganization(organization_id: string) {
+    return this.prisma.entry.findMany({
+      where: {
+        organization_id,
+      },
+    });
+  }
+
+  findAllByOrganizationByAuthor(organization_id: string, author_id: string) {
+    return this.prisma.entry.findMany({
+      where: {
+        organization_id,
+        author_id,
+      },
+    });
+  }
+
+  findAllByOrganizationPaid(organization_id: string, paid: boolean) {
+    return this.prisma.entry.findMany({
+      where: {
+        organization_id,
+        paid,
       },
     });
   }

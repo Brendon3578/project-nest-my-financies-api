@@ -10,11 +10,11 @@ Table User {
   image_url String
   created_at DateTime [default: `now()`, not null]
   updated_at DateTime [not null]
-  UsersOnWorkspaces UsersOnWorkspaces [not null]
+  UsersOnOrganizations UsersOnOrganizations [not null]
   Entries Entry [not null]
 }
 
-Table Workspace {
+Table Organization {
   id String [pk]
   title String [not null]
   description String
@@ -22,18 +22,18 @@ Table Workspace {
   created_at DateTime [default: `now()`, not null]
   Categories Category [not null]
   Entries Entry [not null]
-  UsersOnWorkspaces UsersOnWorkspaces [not null]
+  UsersOnOrganizations UsersOnOrganizations [not null]
 }
 
-Table UsersOnWorkspaces {
+Table UsersOnOrganizations {
   user_id String [not null]
-  workspace_id String [not null]
+  organization_id String [not null]
   joined_in DateTime [default: `now()`, not null]
   User User [not null]
-  Workspace Workspace [not null]
+  Organization Organization [not null]
 
   indexes {
-    (user_id, workspace_id) [pk]
+    (user_id, organization_id) [pk]
   }
 }
 
@@ -41,8 +41,8 @@ Table Category {
   id Int [pk, increment]
   name String [not null]
   description String
-  workspace_id String [not null]
-  Workspace Workspace [not null]
+  organization_id String [not null]
+  Organization Organization [not null]
   Entries Entry [not null]
 }
 
@@ -53,28 +53,23 @@ Table Entry {
   paid Boolean [not null, default: false]
   date DateTime [default: `now()`, not null]
   value Decimal [not null]
-  type EntryType [not null, default: 'despesa']
+  type String [not null]
   category_id Int [not null]
-  workspace_id String [not null]
+  organization_id String [not null]
   author_id String [not null]
   Creator User [not null]
   Category Category [not null]
-  Workspace Workspace [not null]
+  Organization Organization [not null]
 }
 
-Enum EntryType {
-  receita
-  despesa
-}
+Ref: UsersOnOrganizations.user_id > User.id
 
-Ref: UsersOnWorkspaces.user_id > User.id
+Ref: UsersOnOrganizations.organization_id > Organization.id
 
-Ref: UsersOnWorkspaces.workspace_id > Workspace.id
-
-Ref: Category.workspace_id > Workspace.id
+Ref: Category.organization_id > Organization.id
 
 Ref: Entry.author_id > User.id
 
 Ref: Entry.category_id > Category.id
 
-Ref: Entry.workspace_id > Workspace.id
+Ref: Entry.organization_id > Organization.id

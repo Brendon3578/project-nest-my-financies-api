@@ -11,8 +11,8 @@ generator dbml {
 }
 
 datasource db {
-  provider = "postgresql"
-  url      = env("DATABASE_URL")
+  provider = "sqlite"
+  url      = "file:./database.db"
 }
 
 model User {
@@ -25,62 +25,57 @@ model User {
   created_at DateTime @default(now())
   updated_at DateTime @updatedAt
 
-  UsersOnWorkspaces UsersOnWorkspaces[]
-  Entries           Entry[]
+  UsersOnOrganizations UsersOnOrganizations[]
+  Entries              Entry[]
 }
 
-model Workspace {
-  id          String  @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+model Organization {
+  id          String  @id @default(uuid())
   title       String
   description String?
   admin_id    String
 
   created_at DateTime @default(now())
 
-  Categories        Category[]
-  Entries           Entry[]
-  UsersOnWorkspaces UsersOnWorkspaces[]
+  Categories           Category[]
+  Entries              Entry[]
+  UsersOnOrganizations UsersOnOrganizations[]
 }
 
-model UsersOnWorkspaces {
-  user_id      String   @db.Uuid
-  workspace_id String   @db.Uuid
-  joined_in    DateTime @default(now())
+model UsersOnOrganizations {
+  user_id         String
+  organization_id String
+  joined_in       DateTime @default(now())
 
-  User      User      @relation(fields: [user_id], references: [id])
-  Workspace Workspace @relation(fields: [workspace_id], references: [id])
+  User         User         @relation(fields: [user_id], references: [id])
+  Organization Organization @relation(fields: [organization_id], references: [id])
 
-  @@id([user_id, workspace_id])
+  @@id([user_id, organization_id])
 }
 
 model Category {
-  id           Int     @id @default(autoincrement())
-  name         String
-  description  String?
-  workspace_id String  @db.Uuid
+  id              Int     @id @default(autoincrement())
+  name            String
+  description     String?
+  organization_id String
 
-  Workspace Workspace @relation(fields: [workspace_id], references: [id])
-  Entries   Entry[]
+  Organization Organization @relation(fields: [organization_id], references: [id])
+  Entries      Entry[]
 }
 
 model Entry {
-  id           Int       @id @default(autoincrement())
-  name         String
-  description  String?
-  paid         Boolean   @default(false)
-  date         DateTime  @default(now())
-  value        Decimal
-  type         EntryType @default(despesa)
-  category_id  Int
-  workspace_id String    @db.Uuid
-  author_id    String    @db.Uuid
+  id              Int      @id @default(autoincrement())
+  name            String
+  description     String?
+  paid            Boolean  @default(false)
+  date            DateTime @default(now())
+  value           Decimal
+  type            String
+  category_id     Int
+  organization_id String
+  author_id       String
 
-  Creator   User      @relation(fields: [author_id], references: [id])
-  Category  Category  @relation(fields: [category_id], references: [id])
-  Workspace Workspace @relation(fields: [workspace_id], references: [id])
-}
-
-enum EntryType {
-  receita
-  despesa
+  Creator      User         @relation(fields: [author_id], references: [id])
+  Category     Category     @relation(fields: [category_id], references: [id])
+  Organization Organization @relation(fields: [organization_id], references: [id])
 }
